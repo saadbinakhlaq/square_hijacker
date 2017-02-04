@@ -37,7 +37,15 @@ class Game < ApplicationRecord
     players.map(&:user).map(&:id).include?(user_id)
   end
 
+  def current_player(user)
+    self.players.find { |player| player.user == user }
+  end
+
   def over?
     self.state == 'ended'
+  end
+
+  def started?
+    self.state == 'started'
   end
 end

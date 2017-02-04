@@ -7,5 +7,17 @@ FactoryGirl.define do
     min_players 2
     max_players 4
     winner_id nil
+
+    factory :game_with_squares do
+      transient do
+        squares_count 4
+      end
+
+      after(:create) do |game, evaluator|
+        (1..evaluator.squares_count).each do |i|
+          create(:square, number: i, game: game)
+        end
+      end
+    end
   end
 end

@@ -7,5 +7,11 @@ Rails.application.routes.draw do
     end
 
     resources :players, only: [:new, :create]
+
+    resources :squares, only: [] do
+      member do
+        put :claim
+      end
+    end
   end
 end

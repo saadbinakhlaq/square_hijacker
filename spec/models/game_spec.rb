@@ -45,4 +45,15 @@ describe Game do
       expect(game.player_in_game?(user.id)).to eq(true)
     end
   end
+
+  describe '#current_player' do
+    it 'returns player if player is in the game else nil' do
+      game = create(:game)
+      user = create(:user)
+      res = game.add_player(user, 'player')
+
+      player = res[:result]
+      expect(game.current_player(user)).to eq(player)
+    end
+  end
 end

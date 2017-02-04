@@ -1,0 +1,12 @@
+.pure-u-1-3
+  .pure-menu
+    .game{ data: { game: @game.id } }
+
+.pure-u-1-3
+  .squares.margin-top-10
+    - @game.squares.ordered.each do |square|
+      .square{ id: square.id }
+        = form_for(square, url: claim_game_square_path(@game, square), method: :put) do |f|
+          = hidden_field_tag 'square[player_id]', @player.id
+          = f.submit square.number,
+            class: 'square-button'

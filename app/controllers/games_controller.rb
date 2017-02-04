@@ -9,6 +9,7 @@ class GamesController < ApplicationController
 
   def show
     @game = game
+    @player = game.current_player(current_user)
   end
 
   def create
@@ -64,6 +65,6 @@ class GamesController < ApplicationController
   end
 
   def game
-    @_game ||= Game.find(params[:id])
+    @_game ||= Game.includes(:squares, :players).find(params[:id])
   end
 end
