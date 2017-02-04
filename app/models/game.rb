@@ -9,4 +9,6 @@ class Game < ApplicationRecord
             presence: true
 
   STATES = %w(not_started started ended)
+
+  has_many :squares
 end
