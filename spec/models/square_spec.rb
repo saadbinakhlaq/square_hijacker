@@ -35,5 +35,45 @@ describe Square do
         }.to change { game.reload.squares_count }.by(0)
       end
     end
+
+    context 'blockage time is not over' do
+      it 'returns false and error message' do
+        game = create(:game_with_squares, state: 'started', blockage_time: 10)
+        square = game.squares.first
+        square2 = game.squares.last
+        user = create(:user)
+        user2 = create(:user)
+        player = create(:player, game: game, user: user)
+        player2 = create(:player, game: game, user: user2)
+        r = square.claim(player.id)
+
+        Timecop.freeze(Time.now + (game.blockage_time.seconds - 1.seconds)) do
+          expect{
+            res = square2.reload.claim(player.id)
+            expect(res[:success]).to be_falsey
+          }.to change{ game.reload.squares_count }.by(0)
+        end
+      end
+    end
+
+    context 'blockage time is over' do
+      it 'returns false and error message' do
+        game = create(:game_with_squares, state: 'started', blockage_time: 10)
+        square = game.squares.first
+        square2 = game.squares.last
+        user = create(:user)
+        user2 = create(:user)
+        player = create(:player, game: game, user: user)
+        player2 = create(:player, game: game, user: user2)
+        r = square.claim(player.id)
+
+        Timecop.freeze(Time.now + (game.blockage_time.seconds + 1.seconds)) do
+          expect{
+            res = square2.reload.claim(player.id)
+            expect(res[:success]).to be_truthy
+          }.to change{ game.reload.squares_count }.by(-1)
+        end
+      end
+    end
   end
 end
