@@ -1,0 +1,24 @@
+@import 'variables';
+
+body.game.index {
+  .squares {
+    width: 400px;
+  }
+
+  .square {
+    float: left;
+  }
+
+  .square-button {
+    height: 100px;
+    width: 100px;
+  }
+
+  .player-to-make-move {
+    background: $cdblue;
+  }
+
+  .players {
+    width: 250px;
+  }
+}

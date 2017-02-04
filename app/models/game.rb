@@ -8,7 +8,36 @@ class Game < ApplicationRecord
   validates :state,
             presence: true
 
-  STATES = %w(not_started started ended)
+  STATES = %w(not_started started ended).freeze
 
-  has_many :squares
+  has_many :players, dependent: :destroy
+  has_many :squares, dependent: :destroy
+
+  scope :ordered, -> { order(:created_at) }
+
+  def add_player(user, player_name)
+    if self.players_count == self.max_players
+      return {
+        success: false,
+        result: 'max players reached for the game'
+      }
+    else
+      player = Player.create(user: user, name: player_name, game: self)
+
+      return {
+        success: true,
+        result: player
+      }
+    end
+  end
+
+  def player_in_game?(user_id)
+    players = self.players
+
+    players.map(&:user).map(&:id).include?(user_id)
+  end
+
+  def over?
+    self.state == 'ended'
+  end
 end

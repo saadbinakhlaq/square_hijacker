@@ -1,0 +1,14 @@
+.pure-u-1-3
+.pure-u-1-3
+  - @games.ordered.each do |game|
+    .game
+      %p= game.id
+      = form_for(game, url: join_game_path(game), method: :put) do |f|
+        = hidden_field_tag 'games[user_id]', current_user.id
+        = f.submit 'Join', disabled: game.over? ? true: false, class: 'pure-button pure-button-primary'
+
+  .games.margin10.margin-top-10
+    = link_to 'Create a game', new_game_path
+
+  .paginate.margin-top-10
+    =will_paginate @games

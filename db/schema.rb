@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170204082147) do
+ActiveRecord::Schema.define(version: 20170204083545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,25 @@ ActiveRecord::Schema.define(version: 20170204082147) do
     t.datetime "updated_at",                            null: false
   end
 
+  create_table "players", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "game_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_players_on_game_id", using: :btree
+    t.index ["user_id"], name: "index_players_on_user_id", using: :btree
+  end
+
+  create_table "squares", force: :cascade do |t|
+    t.integer  "number"
+    t.integer  "game_id"
+    t.integer  "player_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_squares_on_game_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
@@ -38,4 +57,7 @@ ActiveRecord::Schema.define(version: 20170204082147) do
     t.index ["remember_token"], name: "index_users_on_remember_token", using: :btree
   end
 
+  add_foreign_key "players", "games"
+  add_foreign_key "players", "users"
+  add_foreign_key "squares", "games"
 end

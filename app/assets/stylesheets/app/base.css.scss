@@ -1,0 +1,128 @@
+@import 'variables';
+
+html, button, input, select, textarea,
+.pure-g [class *= "pure-u"] {
+  /* Set your content font stack here: */
+  font-family: $font, Times, "Times New Roman", serif;
+}
+
+body {
+  background: $cblack;
+  font-weight: 100;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 100;
+  color: $cwhite;
+}
+
+a, label, p, span {
+  color: $cwhite;
+}
+
+
+
+.center {
+  margin: auto
+}
+
+.white-text {
+  color: $cwhite !important;
+}
+
+
+.button-success,
+.button-error,
+.button-warning,
+.button-secondary {
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.button-success {
+    background: rgba(68, 207, 203, 1); /* this is a green */
+}
+
+.button-error {
+    background: rgb(202, 60, 60); /* this is a maroon */
+}
+
+.button-warning {
+    background: rgb(223, 117, 20); /* this is an orange */
+}
+
+.button-secondary {
+    background: rgba(78, 165, 217, 1); /* this is a light blue */
+}
+
+.button-xsmall {
+    font-size: 70%;
+}
+
+.button-small {
+    font-size: 85%;
+}
+
+.button-large {
+    font-size: 110%;
+}
+
+.button-xlarge {
+    font-size: 125%;
+}
+
+/* sticky footer */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin: 0 0 100px; /* bottom = footer height */
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+    text-align: center;
+}
+
+.margin-top-10 {
+  margin-top: 10px;
+}
+
+.margin-bottom-10 {
+  margin-bottom: 10px;
+}
+
+.margin-left-10 {
+  margin-left: 10px;
+}
+
+.margin-right-10 {
+  margin-right: 10px;
+}
+
+.float_left {
+  float: left;
+}
+
+.float_right {
+  float: right;
+}
+
+.border-bottom {
+  border-bottom: 2px solid $cgreen;
+}
+
+.padding20 {
+  padding: 20px;
+}
+
+.padding10 {
+  padding: 10px;
+}

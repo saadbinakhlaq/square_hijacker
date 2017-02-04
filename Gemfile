@@ -15,6 +15,8 @@ gem 'clearance'
 gem 'will_paginate', '~> 3.1.0'
 gem 'timecop'
 gem 'haml-rails', '~> 0.9'
+gem 'pure-css-rails'
+gem 'lato-rails'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 
@@ -24,6 +26,7 @@ group :development, :test do
   gem 'rr'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'rails-controller-testing'
 end
 
 group :development do

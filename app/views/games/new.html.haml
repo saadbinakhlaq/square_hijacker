@@ -1,0 +1,4 @@
+= form_for(@game, html: { class: 'pure-form pure-form-stacked' }) do |f|
+  %fieldset
+    = text_field_tag 'games[player_name]', nil, placeholder: 'Player Name'
+    = f.submit class: 'button-secondary pure-button'
