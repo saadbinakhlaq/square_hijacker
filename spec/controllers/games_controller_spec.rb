@@ -6,7 +6,7 @@ describe GamesController do
       sign_in
       expect {
         post :create,
-              params: { games: { player_name: 'saad' } }
+              params: { game: { player_name: 'saad' } }
       }.to change{ Game.count }.by(1)
 
       game = assigns(:game)
@@ -24,7 +24,7 @@ describe GamesController do
         sign_in_as(user)
 
         put :join,
-            params: { id: game.id, games: { user_id: user.id } }
+            params: { id: game.id, game: { user_id: user.id } }
 
         expect(response.status).to eq(302)
         expect(response).to redirect_to(new_game_player_path(game))

@@ -9,7 +9,7 @@ describe PlayersController do
       sign_in_as(user)
       expect {
         post :create,
-             params: { game_id: game.id, players: { name: 'saad' } }
+             params: { game_id: game.id, player: { name: 'saad' } }
 
         expect(response).to redirect_to(game_path(game))
       }.to change { Player.count }.by(1)
