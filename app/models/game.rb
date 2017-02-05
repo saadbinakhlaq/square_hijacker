@@ -82,4 +82,18 @@ class Game < ApplicationRecord
       }
     end
   end
+
+  def square_claimed_by(square_id)
+    square = self.squares.find { |square| square.id == square_id }
+    self.players.find { |player| player.id == square.player_id }
+  end
+
+  def winner
+    self.players.find { |player| player.id == self.winner_id }
+  end
+
+  def assign_winner(player_id)
+    self.winner_id = player_id
+    self.save
+  end
 end

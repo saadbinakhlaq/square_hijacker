@@ -31,6 +31,10 @@ class Square < ApplicationRecord
     end
   end
 
+  def claimed?
+    self.player_id
+  end
+
   private
 
   def blockage_time_over?

@@ -38,6 +38,24 @@ describe SquaresController do
       end
     end
 
+    context 'game has ended' do
+      it 'redirects with failure message' do
+        game = create(:game_with_squares, state: 'ended')
+        user = create(:user)
+        player = create(:player, game: game, user: user)
+        game.save
+        sign_in_as(user)
+        square = game.squares.first
+        expect {
+          put :claim,
+              params: { id: square.id,
+                        game_id: game.id,
+                        square: { player_id: player.id } }
+        }.to change { game.reload.squares_count }.by(0)
+        expect(response.status).to redirect_to(game_path(game))
+      end
+    end
+
     context 'already claimed' do
       it 'returns to the game with flash message' do
         game = create(:game_with_squares, state: 'started')

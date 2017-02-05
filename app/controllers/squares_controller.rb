@@ -1,5 +1,10 @@
 class SquaresController < ApplicationController
   def claim
+    if game.over?
+      flash[:alert] = 'game has ended'
+      return redirect_to game_path(game)
+    end
+
     unless game.started?
       flash[:alert] = 'game has not started yet'
       return redirect_to game_path(game)
@@ -8,7 +13,10 @@ class SquaresController < ApplicationController
     number_of_squares_left = game.squares_count
     res = square.claim(player_id)
     if res[:success]
-      game.end! if number_of_squares_left - 1 == 0
+      if number_of_squares_left - 1 == 0
+        game.end!
+        game.assign_winner(player_id)
+      end
       return redirect_to game_path(game)
     else
       flash[:alert] = res[:result]

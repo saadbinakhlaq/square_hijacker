@@ -6,7 +6,7 @@
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
-  %body{ class: "#{controller_name} #{action_name}"}
+  %body{ class: "#{controller_name} #{action_name}", data: { controller: controller_name, action: action_name } }
     %header.pure-menu.pure-menu-horizontal.border-bottom.padding20
       = link_to 'SquareHijacker', root_path, class: 'pure-menu-heading pure-menu-link'
       %ul.pure-menu-list.float_right
@@ -16,7 +16,7 @@
     #flash
       - flash.each do |key, value|
         %div{ id: "flash_#{key}"}
-          =h value
+          %p=h value
     .main-body.pure-g
       = yield
     %footer.margin-top-10

@@ -15,7 +15,8 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(board_size: board_size,
                      min_players: min_players,
-                     max_players: max_players)
+                     max_players: max_players,
+                     blockage_time: blockage_time)
 
     (1..board_size).each { |i| @game.squares.build(number: i, game: @game) }
 
@@ -44,7 +45,8 @@ class GamesController < ApplicationController
     params.require(:game).permit(:player_name,
                                  :board_size,
                                  :min_players,
-                                 :max_players)
+                                 :max_players,
+                                 :blockage_time)
   end
 
   def board_size
@@ -61,6 +63,10 @@ class GamesController < ApplicationController
 
   def player_name
     game_params[:player_name]
+  end
+
+  def blockage_time
+    game_params[:blockage_time] || 3
   end
 
   def game

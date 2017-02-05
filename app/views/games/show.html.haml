@@ -3,10 +3,15 @@
     .game{ data: { game: @game.id } }
 
 .pure-u-1-3
+  %p.winner= @game&.winner&.name
+  %p#player.hidden{ data: { playerId: @player.id, colour: time_to_hex(@player.joined.to_i)} }
   .squares.margin-top-10
     - @game.squares.ordered.each do |square|
-      .square{ id: square.id }
+      .square{ id: square.id,
+               data: { colour: time_to_hex(@player.joined.to_i), claimed: square.claimed? },
+               style: square.claimed? ? "background: #{time_to_hex(@game.square_claimed_by(square.id)&.joined.to_i)}" : '' }
         = form_for(square, url: claim_game_square_path(@game, square), method: :put) do |f|
           = hidden_field_tag 'square[player_id]', @player.id
           = f.submit square.number,
+            disabled: !@game.started? || @game.over? || square.claimed?,
             class: 'square-button'

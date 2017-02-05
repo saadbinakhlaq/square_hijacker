@@ -1,6 +1,7 @@
 @import 'variables';
 
-body.game.index {
+body.games.index,
+body.games.show {
   .squares {
     width: 400px;
   }

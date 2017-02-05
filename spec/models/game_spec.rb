@@ -100,4 +100,38 @@ describe Game do
       end
     end
   end
+
+  describe '#square_claimed_by' do
+    it 'returns player which claimed the square' do
+      game = create(:game)
+      user = create(:user)
+      player = create(:player, user: user, game: game)
+      square = create(:square, number: 1, player_id: player.id, game: game)
+
+      expect(game.square_claimed_by(square.id)).to eq(player)
+    end
+  end
+
+  describe '#assign_winner' do
+    it 'assigns winner' do
+      game = create(:game)
+      user = create(:user)
+      player = create(:player, user: user, game: game)
+
+      expect{
+        game.assign_winner(player.id)
+      }.to change { game.winner_id }.to(player.id)
+    end
+  end
+
+  describe '#winner' do
+    it 'returns player with winner_id if game has ended' do
+      game = create(:game)
+      user = create(:user)
+      player = create(:player, user: user, game: game)
+      game.winner_id = player.id
+      game.save
+      expect(game.winner).to eq(player)
+    end
+  end
 end
