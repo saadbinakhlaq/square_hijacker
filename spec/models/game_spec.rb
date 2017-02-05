@@ -78,4 +78,26 @@ describe Game do
       end
     end
   end
+
+  describe '#end!' do
+    context 'not_started' do
+      it 'sets state of the game to started' do
+        game = create(:game)
+        result = game.end!
+
+        expect(game.state).to eq('not_started')
+        expect(result[:success]).to be_falsey
+      end
+    end
+
+    context 'started' do
+      it 'ends the game' do
+        game = create(:game, state: 'started')
+        result = game.end!
+
+        expect(game.state).to eq('ended')
+        expect(result[:success]).to be_truthy
+      end
+    end
+  end
 end

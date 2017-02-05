@@ -34,7 +34,7 @@ describe SquaresController do
                         game_id: game.id,
                         square: { player_id: player.id } }
         }.to change { game.reload.squares_count }.by(-1)
-        expect(response.status).to eq(200)
+        expect(response.status).to redirect_to(game_path(game))
       end
     end
 
@@ -53,6 +53,28 @@ describe SquaresController do
                         game_id: game.id,
                         square: { player_id: player.id } }
         }.to change { game.reload.squares_count }.by(0)
+        expect(response.status).to eq(302)
+      end
+    end
+
+    context 'final square claim' do
+      it 'ends the game' do
+        game = create(:game_with_squares, state: 'started')
+        user = create(:user)
+        player = create(:player, game: game, user: user)
+        game.save
+        sign_in_as(user)
+        last_square = game.squares.last
+        game.squares.first(3).each do |square|
+          square.claim(player.id)
+        end
+
+        expect {
+          put :claim,
+              params: { id: last_square.id,
+                        game_id: game.id,
+                        square: { player_id: player.id } }
+        }.to change { game.reload.state }.to('ended')
         expect(response.status).to eq(302)
       end
     end

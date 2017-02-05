@@ -5,9 +5,11 @@ class SquaresController < ApplicationController
       return redirect_to game_path(game)
     end
 
+    number_of_squares_left = game.squares_count
     res = square.claim(player_id)
     if res[:success]
-      return head :ok
+      game.end! if number_of_squares_left - 1 == 0
+      return redirect_to game_path(game)
     else
       flash[:alert] = res[:result]
       redirect_to game_path(game)

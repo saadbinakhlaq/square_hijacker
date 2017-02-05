@@ -65,4 +65,21 @@ class Game < ApplicationRecord
       }
     end
   end
+
+  def end!
+    case self.state
+    when 'started'
+      self.state = STATES.last
+      self.save!
+      return {
+        success: true,
+        message: 'Game has ended'
+      }
+    when 'not_started'
+      return {
+        success: false,
+        message: 'Game has not started'
+      }
+    end
+  end
 end
