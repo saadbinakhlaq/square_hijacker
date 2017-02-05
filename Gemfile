@@ -23,7 +23,7 @@ gem 'lato-rails'
 group :development, :test do
   gem 'pry-byebug'
   gem 'rspec-rails', '~> 3.5'
-  gem 'rr'
+  gem 'rr', '1.1.2'
   gem 'factory_girl_rails'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'rails-controller-testing'

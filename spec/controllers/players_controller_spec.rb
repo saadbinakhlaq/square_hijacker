@@ -23,6 +23,7 @@ describe PlayersController do
         player = create(:player, game: game, user: user)
         user2 = create(:user)
         sign_in_as(user2)
+        mock(ActionCable.server).broadcast("game_channel_#{game.id}", enable_squares: true)
 
         post :create, params: { game_id: game.id, player: { name: 'saad' } }
         expect(game.reload.state).to eq('started')

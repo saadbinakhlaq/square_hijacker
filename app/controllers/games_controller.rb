@@ -50,7 +50,7 @@ class GamesController < ApplicationController
   end
 
   def board_size
-    game_params[:board_size] || 4
+    game_params[:board_size] || 10
   end
 
   def min_players
@@ -66,7 +66,7 @@ class GamesController < ApplicationController
   end
 
   def blockage_time
-    game_params[:blockage_time] || 3
+    game_params[:blockage_time] || 1
   end
 
   def game

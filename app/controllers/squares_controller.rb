@@ -1,4 +1,6 @@
 class SquaresController < ApplicationController
+  include ApplicationHelper
+
   def claim
     if game.over?
       flash[:alert] = 'game has ended'
@@ -15,9 +17,17 @@ class SquaresController < ApplicationController
     if res[:success]
       if number_of_squares_left - 1 == 0
         game.end!
-        game.assign_winner(player_id)
+        game.assign_winner
+        ActionCable.server.broadcast "game_channel_#{game.id}",
+                                      game_ends: true,
+                                      winner_name: game.winner.name
       end
-      return redirect_to game_path(game)
+      
+      ActionCable.server.broadcast "game_channel_#{game.id}",
+                                   block: true,
+                                   unclaimed_squares: game.unclaimed_squares,
+                                   disabled_square_id: square.id,
+                                   disabled_square_colour: time_to_hex(game.square_claimed_by(square.id).joined.to_i)
     else
       flash[:alert] = res[:result]
       redirect_to game_path(game)

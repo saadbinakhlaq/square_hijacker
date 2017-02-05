@@ -9,11 +9,16 @@ class Game < ApplicationRecord
             presence: true
 
   STATES = %w(not_started started ended).freeze
+  self.per_page = 10
 
   has_many :players, dependent: :destroy
   has_many :squares, dependent: :destroy
 
   scope :ordered, -> { order(:created_at) }
+
+  scope :for_user, -> (current_user_id) {
+    joins(:players).where(players: { user_id: current_user_id })
+  }
 
   def add_player(user, player_name)
     if self.players_count == self.max_players
@@ -92,8 +97,13 @@ class Game < ApplicationRecord
     self.players.find { |player| player.id == self.winner_id }
   end
 
-  def assign_winner(player_id)
-    self.winner_id = player_id
+  def assign_winner
+    winner_id, _ = self.squares.inject(Hash.new(0)) {|h, v| h[v.player_id] += 1; h}.max_by{ |k, v| v }
+    self.winner_id = winner_id
     self.save
+  end
+
+  def unclaimed_squares
+    self.squares.select{ |square| square.player_id.nil? }.map(&:id)
   end
 end

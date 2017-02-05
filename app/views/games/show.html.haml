@@ -3,12 +3,14 @@
     .game{ data: { game: @game.id } }
 
 .pure-u-1-3
-  %p.winner= @game&.winner&.name
+  %p#winner.winner= @game&.winner&.name
+  %p#blockage-time.hidden{ data: { blockage_time: @game.blockage_time } }
+  %p#clock.clock= @game.blockage_time
   %p#player.hidden{ data: { playerId: @player.id, colour: time_to_hex(@player.joined.to_i)} }
   .squares.margin-top-10
     - @game.squares.ordered.each do |square|
-      .square{ id: square.id,
-               data: { colour: time_to_hex(@player.joined.to_i), claimed: square.claimed? },
+      .square{ id: "square-#{square.id}",
+               data: { colour: time_to_hex(@player.joined.to_i), claimed: square.claimed?, unclaimed: square.claimed? ? false : true },
                style: square.claimed? ? "background: #{time_to_hex(@game.square_claimed_by(square.id)&.joined.to_i)}" : '' }
         = form_for(square, url: claim_game_square_path(@game, square), method: :put) do |f|
           = hidden_field_tag 'square[player_id]', @player.id

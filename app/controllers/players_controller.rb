@@ -8,7 +8,11 @@ class PlayersController < ApplicationController
     res = game.add_player(current_user, player_name)
 
     if res[:success]
-      game.start! if game.players_count == game.min_players
+      if game.players_count == game.min_players
+        game.start!
+        ActionCable.server.broadcast "game_channel_#{game.id}",
+                                      enable_squares: true
+      end
       redirect_to game_path(game)
     else
       flash[:alert] = res[:result]
