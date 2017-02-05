@@ -22,7 +22,7 @@ class Game < ApplicationRecord
         result: 'max players reached for the game'
       }
     else
-      player = Player.create(user: user, name: player_name, game: self)
+      player = self.players.create(user: user, name: player_name)
 
       return {
         success: true,

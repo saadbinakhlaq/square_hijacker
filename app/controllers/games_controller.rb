@@ -19,9 +19,8 @@ class GamesController < ApplicationController
 
     (1..board_size).each { |i| @game.squares.build(number: i, game: @game) }
 
-    @game.add_player(current_user, player_name)
-
     if @game.save
+      @game.add_player(current_user, player_name)
       redirect_to game_path(@game)
     else
       render :new

@@ -9,6 +9,12 @@ class Player < ApplicationRecord
 
   validates :user,
        uniqueness: { scope: :game, 
-                     message: 'Validation failed: You are already in this game' }
+                     message: 'Validation failed: You are already in this game' },
+         presence: true
 
+  validates :game_id,
+         presence: true
+
+  validates :user_id,
+          presence: true
 end

@@ -2,8 +2,7 @@ class Square < ApplicationRecord
   belongs_to :game, counter_cache: true
 
   validates :number,
-            presence: true,
-          uniqueness: true
+            presence: true
 
   scope :ordered, -> { order(:id) }
 

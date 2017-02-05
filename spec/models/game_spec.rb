@@ -17,6 +17,7 @@ describe Game do
         player = res[:result]
         expect(res[:success]).to be_truthy
         expect(player.name).to eq(player_name)
+        expect(player.game).to eq(game)
         expect(game.players_count).to eq(1)
       }.to change { Player.count }.by(1)
     end

@@ -4,6 +4,8 @@ describe Player do
   it { should belong_to(:game) }
   it { should belong_to(:user) }
   it { is_expected.to validate_presence_of(:name) }
+  it { is_expected.to validate_presence_of(:user_id) }
+  it { is_expected.to validate_presence_of(:game_id) }
 
   it 'validate a user does not join a game twice' do
     user = create(:user)

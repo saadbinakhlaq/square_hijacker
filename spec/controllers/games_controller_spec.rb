@@ -3,7 +3,9 @@ require 'rails_helper'
 describe GamesController do
   describe 'POST create' do
     it 'creates a game with given number of squares' do
-      sign_in
+      user = create(:user)
+      sign_in_as(user)
+
       expect {
         post :create,
               params: { game: { player_name: 'saad' } }
