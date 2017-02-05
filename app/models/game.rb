@@ -48,4 +48,21 @@ class Game < ApplicationRecord
   def started?
     self.state == 'started'
   end
+
+  def start!
+    case self.state
+    when 'not_started'
+      self.state = STATES.second
+      self.save!
+      return {
+        success: true,
+        message: 'Game has started'
+      }
+    when 'ended'
+      return {
+        success: false,
+        message: 'Cannot transition from ended to started'
+      }
+    end
+  end
 end

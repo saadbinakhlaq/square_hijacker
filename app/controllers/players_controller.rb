@@ -8,6 +8,7 @@ class PlayersController < ApplicationController
     res = game.add_player(current_user, player_name)
 
     if res[:success]
+      game.start! if game.players_count == game.min_players
       redirect_to game_path(game)
     else
       flash[:alert] = res[:result]

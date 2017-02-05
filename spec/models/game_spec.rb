@@ -56,4 +56,25 @@ describe Game do
       expect(game.current_player(user)).to eq(player)
     end
   end
+
+  describe '#start!' do
+    context 'not_started' do
+      it 'sets state of the game to started' do
+        game = create(:game)
+        game.start!
+
+        expect(game.state).to eq('started')
+      end
+    end
+
+    context 'ended' do
+      it 'returns false with failure message' do
+        game = create(:game, state: 'ended')
+        res = game.start!
+
+        expect(res[:success]).to be_falsey
+        expect(res[:message]).to eq('Cannot transition from ended to started')
+      end
+    end
+  end
 end

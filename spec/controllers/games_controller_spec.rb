@@ -38,8 +38,7 @@ describe GamesController do
         game = create(:game)
         player = create(:player, game: game, user: user)
 
-
-        put :join, params: { id: game.id, games: { user_id: user.id } }
+        put :join, params: { id: game.id, game: { user_id: user.id } }
         expect(response).to redirect_to(game_path(game))
       end
     end
