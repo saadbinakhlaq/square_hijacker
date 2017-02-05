@@ -31,6 +31,7 @@ App.game = App.cable.subscriptions.create("GameChannel", {
         function() {
           self.enableSquares(data.unclaimed_squares);
           self.fillClaimedSquare(data.disabled_square_id, data.disabled_square_colour);
+          self.removeButtonColor();
         },
         time * 1000
       );
@@ -69,5 +70,11 @@ App.game = App.cable.subscriptions.create("GameChannel", {
     $claimedSquare.attr('data-claimed', $player.data('playerid'));
     $claimedSquare.find('input[type=submit]').css('background', '')
     $claimedSquare.css('background', colour);
+  },
+
+  removeButtonColor: function() {
+    $('input[type=submit]').each(function() {
+      $(this).css('background', '');
+    });
   }
 });
