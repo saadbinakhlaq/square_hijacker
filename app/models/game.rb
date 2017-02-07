@@ -106,4 +106,8 @@ class Game < ApplicationRecord
   def unclaimed_squares
     self.squares.select{ |square| square.player_id.nil? }.map(&:id)
   end
+
+  def score(player_id)
+    self.squares.select { |square| square.player_id == player_id.to_i }.count
+  end
 end

@@ -26,6 +26,8 @@ App.game = App.cable.subscriptions.create("GameChannel", {
         time
       );
 
+      this.updatePlayerScore(data.player_id, data.player_score);
+
       var self = this;
       setTimeout(
         function() {
@@ -56,7 +58,6 @@ App.game = App.cable.subscriptions.create("GameChannel", {
   },
 
   enableSquares: function(array) {
-    console.log(array)
     $.each(array, function(index) {
       var submit = $('#edit_square_' + array[index]).find(':submit');
       submit.removeAttr('disabled');
@@ -76,5 +77,9 @@ App.game = App.cable.subscriptions.create("GameChannel", {
     $('input[type=submit]').each(function() {
       $(this).css('background', '');
     });
+  },
+
+  updatePlayerScore: function(player_id, score) {
+    $('.player-menu').find('#player-score-' + player_id).text(score);
   }
 });

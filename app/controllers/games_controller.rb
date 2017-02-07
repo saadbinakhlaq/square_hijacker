@@ -10,6 +10,7 @@ class GamesController < ApplicationController
   def show
     @game = game
     @player = game.current_player(current_user)
+    @players = game.players.ordered
   end
 
   def create

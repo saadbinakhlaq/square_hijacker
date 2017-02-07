@@ -34,4 +34,12 @@ body.games.show {
     margin: auto;
     text-align: center;
   }
+
+  .players {
+    margin-top: 74px;
+
+    .player-menu-item {
+      border-bottom: 0.5px solid;
+    }
+  }
 }

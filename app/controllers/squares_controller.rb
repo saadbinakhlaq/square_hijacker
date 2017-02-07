@@ -27,7 +27,9 @@ class SquaresController < ApplicationController
                                    block: true,
                                    unclaimed_squares: game.unclaimed_squares,
                                    disabled_square_id: square.id,
-                                   disabled_square_colour: time_to_hex(game.square_claimed_by(square.id).joined.to_i)
+                                   disabled_square_colour: time_to_hex(game.square_claimed_by(square.id).joined.to_i, game.square_claimed_by(square.id).id),
+                                   player_score: game.score(player_id),
+                                   player_id: player_id
     else
       flash[:alert] = res[:result]
       redirect_to game_path(game)

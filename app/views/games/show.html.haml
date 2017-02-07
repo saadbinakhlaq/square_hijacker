@@ -1,19 +1,29 @@
 .pure-u-1-3
-  .pure-menu
+  .pure-menu.player-menu
     .game{ data: { game: @game.id } }
+
 
 .pure-u-1-3
   %p#winner.winner= @game&.winner&.name
   %p#blockage-time.hidden{ data: { blockage_time: @game.blockage_time } }
   %p#clock.clock= @game.blockage_time
-  %p#player.hidden{ data: { playerId: @player.id, colour: time_to_hex(@player.joined.to_i)} }
+  %p#player.hidden{ data: { playerId: @player.id, colour: time_to_hex(@player.joined.to_i, @player.id)} }
   .squares.margin-top-10
     - @game.squares.ordered.each do |square|
       .square{ id: "square-#{square.id}",
-               data: { colour: time_to_hex(@player.joined.to_i), claimed: square.claimed?, unclaimed: square.claimed? ? false : true },
-               style: square.claimed? ? "background: #{time_to_hex(@game.square_claimed_by(square.id)&.joined.to_i)}" : '' }
+               data: { colour: time_to_hex(@player.joined.to_i, @player.id), claimed: square.claimed?, unclaimed: square.claimed? ? false : true },
+               style: square.claimed? ? "background: #{time_to_hex(@game.square_claimed_by(square.id)&.joined.to_i, @game.square_claimed_by(square.id)&.id)}" : '' }
         = form_for(square, url: claim_game_square_path(@game, square), method: :put) do |f|
           = hidden_field_tag 'square[player_id]', @player.id
           = f.submit square.number,
             disabled: !@game.started? || @game.over? || square.claimed?,
             class: 'square-button'
+.pure-u-1-3
+  .pure-menu.player-menu
+    %ul.pure-menu-list.players
+      - @players.each do |player|
+        %li.pure-menu-item
+          .pure-menu-link.player-menu-item{ style: "background: #{time_to_hex(player.joined.to_i, player.id)}" }
+            %span.player-menu-item__name= player.name
+            %span.player-menu-item__score{ id: "player-score-#{player.id}" }= @game.score(player.id)
+
