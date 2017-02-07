@@ -1,10 +1,13 @@
 .pure-u-1-3
   .pure-menu.player-menu
     .game{ data: { game: @game.id } }
-
+    %ul.pure-menu-list
+      %li.pure-menu-item
+        #winner.winner
+          - if @game.winner.present?
+            %p#winner-name.winner-name= "Player: #{@game&.winner&.name} wins the game"
 
 .pure-u-1-3
-  %p#winner.winner= @game&.winner&.name
   %p#blockage-time.hidden{ data: { blockage_time: @game.blockage_time } }
   %p#clock.clock= @game.blockage_time
   %p#player.hidden{ data: { playerId: @player.id, colour: time_to_hex(@player.joined.to_i, @player.id)} }
@@ -20,10 +23,10 @@
             class: 'square-button'
 .pure-u-1-3
   .pure-menu.player-menu
-    %ul.pure-menu-list.players
+    %ul.pure-menu-list.players#players
       - @players.each do |player|
         %li.pure-menu-item
           .pure-menu-link.player-menu-item{ style: "background: #{time_to_hex(player.joined.to_i, player.id)}" }
             %span.player-menu-item__name= player.name
-            %span.player-menu-item__score{ id: "player-score-#{player.id}" }= @game.score(player.id)
+            %span.player-menu-item__score.float-right{ id: "player-score-#{player.id}" }= @game.score(player.id)
 

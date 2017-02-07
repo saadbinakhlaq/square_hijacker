@@ -9,7 +9,7 @@
   %body{ class: "#{controller_name} #{action_name}", data: { controller: controller_name, action: action_name } }
     %header.pure-menu.pure-menu-horizontal.border-bottom.padding20
       = link_to 'SquareHijacker', root_path, class: 'pure-menu-heading pure-menu-link'
-      %ul.pure-menu-list.float_right
+      %ul.pure-menu-list.float-right
         - if signed_in?
           %li.pure-menu-item
             = link_to t(".sign_out"), sign_out_path, method: :delete, class: 'pure-menu-link'

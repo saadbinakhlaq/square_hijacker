@@ -12,11 +12,15 @@ App.game = App.cable.subscriptions.create("GameChannel", {
     var time = Number($('#blockage-time').data()['blockageTime']);
 
     if (data.game_ends) {
-      $('#winner').text(data.winner_name);
+      this.addWinner(data.winner_name);
     }
 
     if (data.enable_squares) {
       this.enableAllSqaures();
+    }
+
+    if (data.player_joined) {
+      this.addPlayer(data.joining_player_id, data.joining_player_name, data.joining_player_colour);
     }
 
     if (data.block) {
@@ -81,5 +85,19 @@ App.game = App.cable.subscriptions.create("GameChannel", {
 
   updatePlayerScore: function(player_id, score) {
     $('.player-menu').find('#player-score-' + player_id).text(score);
+  },
+
+  addPlayer: function(playerId, name, colour) {
+    var $playersMenu = $('#players');
+    $playersMenu.append('<li class="pure-menu-item">' +
+                          '<div class="pure-menu-link player-menu-item" style="background: ' + colour + '">' + 
+                            '<span class="player-menu-item__name">' + name + '</span>' +
+                            '<span class="player-menu-item__score float-right" id="player-score-' + playerId + '"> ' + 0 + '</span>' +
+                          '</div>' +
+                        '</li>');
+  },
+
+  addWinner: function(name) {
+    $('#winner').append('<p id="winner-name">Player: ' + name +' wins the game</p>')
   }
 });
