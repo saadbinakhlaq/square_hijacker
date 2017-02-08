@@ -114,12 +114,15 @@ describe Game do
 
   describe '#assign_winner' do
     it 'assigns winner' do
-      game = create(:game)
+      game = create(:game_with_squares, state: 'started')
       user = create(:user)
       player = create(:player, user: user, game: game)
+      game.squares.each do |square|
+        square.claim(player.id)
+      end
 
       expect{
-        game.assign_winner(player.id)
+        game.assign_winner
       }.to change { game.winner_id }.to(player.id)
     end
   end

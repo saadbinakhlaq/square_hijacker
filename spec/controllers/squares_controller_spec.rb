@@ -28,13 +28,13 @@ describe SquaresController do
         game.save
         sign_in_as(user)
         square = game.squares.first
+
         expect {
           put :claim,
               params: { id: square.id,
                         game_id: game.id,
                         square: { player_id: player.id } }
         }.to change { game.reload.squares_count }.by(-1)
-        expect(response.status).to redirect_to(game_path(game))
       end
     end
 
@@ -93,7 +93,6 @@ describe SquaresController do
                         game_id: game.id,
                         square: { player_id: player.id } }
         }.to change { game.reload.state }.to('ended')
-        expect(response.status).to eq(302)
       end
     end
   end
