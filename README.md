@@ -1,24 +1,13 @@
-# README
+# A real time game where player compete to hijack squares in a grid
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Install
+* clone the repo
+* cd in to the directory and do `bundle install`
+* `rake db:create`
+* `rake db:migrate`
+* run the tests `rake`
+* `bundle exec rails server` to spin up a rails server
+* by default the application will be available on localhost:3000
+* sign in and play the game
+* by default two players are required to start the game
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
