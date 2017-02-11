@@ -20,7 +20,7 @@ gem 'haml-rails', '~> 0.9'
 gem 'pure-css-rails'
 gem 'lato-rails'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
+gem 'redis', '~> 3.0'
 
 group :development, :test do
   gem 'pry-byebug'
