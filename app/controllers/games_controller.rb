@@ -9,6 +9,12 @@ class GamesController < ApplicationController
 
   def show
     @game = game
+
+    if !game.player_in_game?(current_user.id)
+      flash[:notice] = "You have not joined the game: #{game.id} yet"
+      redirect_to games_path
+    end
+
     @player = game.current_player(current_user)
     @players = game.players.ordered
   end

@@ -45,4 +45,17 @@ describe GamesController do
       end
     end
   end
+
+  describe 'GET show' do
+    context 'player not in the game' do
+      it 'redirects with games page' do
+        user = create(:user)
+        sign_in_as(user)
+        game = create(:game)
+
+        get :show, params: { id: game.id }
+        expect(response).to redirect_to(games_path)
+      end
+    end
+  end
 end

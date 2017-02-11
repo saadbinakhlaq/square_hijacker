@@ -13,10 +13,10 @@
         - if signed_in?
           %li.pure-menu-item
             = link_to t(".sign_out"), sign_out_path, method: :delete, class: 'pure-menu-link'
-    #flash
+    #flash.flash
       - flash.each do |key, value|
-        %div{ id: "flash_#{key}"}
-          %p=h value
+        %div{ id: "flash-#{key}"}
+          %p.flash-message=h value
     .main-body.pure-g
       = yield
     %footer.margin-top-10

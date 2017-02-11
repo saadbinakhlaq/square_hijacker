@@ -1,7 +1,13 @@
 SITENAME = {
   common: {
     init: function() {
-    // application-wide code
+      var flashMessage = $('#flash');
+
+      if (!!flashMessage) {
+        setTimeout(function() {
+          flashMessage.fadeOut('slow');
+        }, 2000)
+      }
     }
   }
 };
