@@ -2,10 +2,12 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => 'viewport'}
     %title SquareHijacker
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
+    = stylesheet_link_tag '//fonts.googleapis.com/css?family=Lato'
   %body{ class: "#{controller_name} #{action_name}", data: { controller: controller_name, action: action_name } }
     %header.pure-menu.pure-menu-horizontal.border-bottom.padding20
       = link_to 'SquareHijacker', root_path, class: 'pure-menu-heading pure-menu-link'
