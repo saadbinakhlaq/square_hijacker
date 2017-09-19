@@ -21,6 +21,7 @@ gem 'haml-rails', '~> 0.9'
 gem 'pure-css-rails'
 # Use Redis adapter to run Action Cable in production
 gem 'redis', '~> 3.0'
+gem 'simplecov', :require => false, :group => :test
 
 group :development, :test do
   gem 'pry-byebug'
